@@ -11,33 +11,28 @@
 class Point
 {
 public:
-    explicit Point(int x_init = 0, int y_init = 0):x(x_init), y(y_init){}
-    Point operator+(const Point &A)const;
-    Point operator-(const Point &A)const;
-    void set(int re_x = 0, int re_y = 0){x = re_x; y = re_y;}
-    int get_x()const{return x;}
-    int get_y()const{return y;}
-    double distance(Point p)const{return sqrt(pow(p.x-x, 2) + pow(p.x-x, 2));}
-    void show()const{std::cout << '(' << x << ',' << y << ')';}
+    explicit Point(double x_init = 0, double y_init = 0):x(x_init), y(y_init){}
+
+    void set(double re_x = 0, double re_y = 0){x = re_x; y = re_y;}
+    double get_x()const{return x;}
+    double get_y()const{return y;}
+    double operator-(const Point &p)const{return sqrt(pow(p.x-x, 2) + pow(p.y-y, 2));}
+    friend std::ostream &operator<<(std::ostream &os, const Point &P);
+    friend std::istream &operator>>(std::istream &is, Point &P);
 private:
-    int x, y;
+    double x, y;
 };
 
-Point Point::operator+(const Point &A)const
+std::ostream &operator<<(std::ostream &os, const Point &P)
 {
-    Point tmp(x, y);
-    tmp.x += A.x;
-    tmp.y += A.y;
-    return tmp;
+    os << '[' << P.x << ", " << P.y << ']';
+    return os;
 }
 
-Point Point::operator-(const Point &A)const
+std::istream &operator>>(std::istream &is, Point &P)
 {
-    Point tmp(x, y);
-    tmp.x -= A.x;
-    tmp.y -= A.y;
-    return tmp;
+    is >> P.x >> P.y;
+    return is;
 }
-
 
 #endif //CIRCLE_POINT_H
